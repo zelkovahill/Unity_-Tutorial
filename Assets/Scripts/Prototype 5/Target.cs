@@ -17,6 +17,8 @@ public class Target : MonoBehaviour
    private float maxTorque = 10;
    private float xRange = 4;
    private float ySpawnPos = -6;
+   
+   
    private void Start()
    {
       gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
@@ -43,13 +45,20 @@ public class Target : MonoBehaviour
 
    private void OnMouseDown()
    {
-      Instantiate(explosionParticle,transform.position,explosionParticle.transform.rotation);
-      gameManager.UpdateScore(pointValue);
-      Destroy(gameObject);
+      if (gameManager.isGameActive)
+      {
+         Instantiate(explosionParticle,transform.position,explosionParticle.transform.rotation);
+         gameManager.UpdateScore(pointValue);
+         Destroy(gameObject);
+      }
    }
 
    private void OnTriggerEnter(Collider other)
    {
       Destroy(gameObject);
+      if (!gameObject.CompareTag("Bad"))
+      {
+         gameManager.GameOver();
+      }
    }
 }
