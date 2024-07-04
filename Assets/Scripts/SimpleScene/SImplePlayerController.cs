@@ -38,4 +38,20 @@ public class SImplePlayerController : MonoBehaviour
       transform.position = new Vector3(transform.position.x, transform.position.y, -zBound);
     }
   }
+
+  private void OnCollisionEnter(Collision other)
+  {
+    if (other.gameObject.CompareTag("Enemy"))
+    {
+      Debug.Log("Game Over!");
+    }
+  }
+
+  private void OnTriggerEnter(Collider other)
+  {
+    if (other.gameObject.CompareTag("Powerup"))
+    {
+      Destroy(other.gameObject);
+    }
+  }
 }
